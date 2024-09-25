@@ -1,7 +1,7 @@
 <template>
   <div ref="formPageThree" class="formPageThree">
     <form>
-      <!-- Preferred Contact Method -->
+      
       <label>Preferred Contact Method:</label>
       <div class="radio-group">
         <div class="radio-group-container">
@@ -17,15 +17,15 @@
       </div>
       <p v-if="errors.preferredContact" class="error-message">{{ errors.preferredContact }}</p>
 
-      <!-- Attach File (Optional) -->
+      
       <label for="attachment">Attach File (Optional):</label>
       <input type="file" id="attachment" @change="handleFileUpload" class="contact-file"/>
 
-      <!-- Preferred Meeting Date (Optional) -->
+    
       <label for="meetingDate">Preferred Meeting Date (Optional):</label>
       <input type="date" id="meetingDate" v-model="meetingDate" />
 
-      <!-- Budget (Optional) -->
+    
       <label for="budget">Budget (Optional):</label>
       <input type="number" id="budget" v-model="budget" placeholder="$"/>
     </form>

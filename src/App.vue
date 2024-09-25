@@ -3,7 +3,7 @@
   <div class="router-wrapper">
     <router-view v-slot="{ Component }">
       <transition name="slide-fade" mode="out-in">
-        <component :is="Component" />
+        <component :is="Component" :topnavHeight="topnavHeight"/>
       </transition>
     </router-view>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 import TopNav from './components/TopNav.vue'
-
+import NProgress from 'nprogress';
 export default {
   name: 'App',
   data() {
@@ -22,8 +22,23 @@ export default {
   components : {
     TopNav,
   },
+  created() {
+    NProgress.configure({
+      minimum: 0.0,
+      easing: 'ease',
+      speed: 200,
+      showSpinner: false,
+    });
+  },
   mounted() {
     window.scrollTo(0, 0);
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const scrollHeight = document.body.scrollHeight;
+      const clientHeight = window.innerHeight;
+      const scrollPercent = (scrollY / (scrollHeight - clientHeight));
+      NProgress.set(scrollPercent-0.001);
+    });
   },
   methods: {
     receiveData(data) {
@@ -71,4 +86,20 @@ export default {
   opacity: 0;
 }
 
+#nprogress .bar {
+  background: linear-gradient(to right, hsl(276, 100%, 20%), hsl(276, 100%, 25%), hsl(276, 100%, 30%), hsl(276, 100%, 40%), hsl(290, 100%, 50%));
+  /* box-shadow: 100px 100px 5px linear-gradient(to right, #00ffd5, #ff0000, #5800af, #9000ff, #550099); */
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+}
+#nprogress .peg {
+  width: 100%;
+  box-shadow: 0 0 6px rgb(141, 8, 250), 0 0 3px rgb(145, 17, 250);
+  opacity: 1.0;
+  transform: rotate(0deg);
+}
 </style>

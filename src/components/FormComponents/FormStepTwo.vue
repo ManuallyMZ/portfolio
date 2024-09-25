@@ -1,12 +1,11 @@
 <template>
   <div ref="formPageTwo" class="formPageTwo">
     <form>
-      <!-- Subject Input -->
+
       <label for="subject">Subject:</label>
       <input type="text" id="subject" v-model="subject" required />
       <p v-if="errors.subject" class="error-message">{{ errors.subject }}</p>
 
-      <!-- Reason for Contact Dropdown -->
       <label for="reason">Reason for Contact:</label>
       <select id="reason" v-model="reason" required class="contact-reason">
         <option disabled value="">Select reason</option>
@@ -17,7 +16,7 @@
       </select>
       <p v-if="errors.reason" class="error-message">{{ errors.reason }}</p>
 
-      <!-- Message Textarea (Optional) -->
+      
       <label for="message">Message (Optional):</label>
       <textarea id="message" v-model="message"></textarea>
     </form>
@@ -50,7 +49,6 @@ export default {
         errors.value.reason = 'Reason is required';
         isValid = false;
       }
-      // Message is optional, so no validation needed here
 
       return isValid;
     };

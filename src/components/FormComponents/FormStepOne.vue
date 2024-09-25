@@ -1,17 +1,15 @@
 <template>
   <div ref="formPageOne" class="formPageOne">
     <form>
-      <!-- Name Input -->
+
       <label for="fullName">Name:</label>
       <input type="text" id="fullName" v-model="fullName" required />
       <p v-if="errors.fullName" class="error-message">{{ errors.fullName }}</p>
 
-      <!-- Email Input -->
       <label for="email">Email:</label>
       <input type="email" id="email" v-model="email" required />
       <p v-if="errors.email" class="error-message">{{ errors.email }}</p>
 
-      <!-- Phone Number (Optional) -->
       <label for="phone">Phone Number (Optional):</label>
       <input type="tel" id="phone" ref="phoneInput" v-model="phone" />
       <p v-if="errors.phone" class="error-message">{{ errors.phone }}</p>
@@ -32,7 +30,7 @@ export default {
     const fullName = ref(formStore.fullName);
     const email = ref(formStore.email);
     const phone = ref(formStore.phone);
-    const countryCode = ref(''); // Reactive variable to store country code
+    const countryCode = ref('');
     const errors = ref({
       fullName: '',
       email: '',
@@ -55,8 +53,7 @@ export default {
     const validateForm = () => {
       console.log('validateForm called');
       let isValid = true;
-      errors.value = { // Reset errors
-        fullName: '',
+      errors.value = {
         email: '',
         phone: ''
       };
@@ -91,16 +88,16 @@ export default {
       phoneInput = document.querySelector('#phone');
       iti = intlTelInput(phoneInput, {
         separateDialCode: true,
-        preferredCountries: ['us', 'gb'], // Modify as needed
+        preferredCountries: ['us', 'gb'],
         utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js'
       });
       const dropdown = document.querySelector('.iti__country-list');
       if (dropdown) {
-        dropdown.style.zIndex = '2000'; // Ensure it appears above other elements
+        dropdown.style.zIndex = '2000';
       }
       phoneInput.addEventListener('countrychange', () => {
         const selectedCountry = iti.getSelectedCountryData();
-        countryCode.value = selectedCountry.dialCode; // Store the country code
+        countryCode.value = selectedCountry.dialCode;
       });
 
       gsap.fromTo(
@@ -111,7 +108,7 @@ export default {
     });
 
     onBeforeUnmount(() => {
-      const shouldStoreCountryCode = phone.value ? countryCode.value : ''; // Only set countryCode if phone is provided
+      const shouldStoreCountryCode = phone.value ? countryCode.value : '';
       console.log('Phone:', phone.value);
       console.log('Should Store Country Code:', shouldStoreCountryCode);
       formStore.setPersonalInfo(fullName.value, email.value, phone.value, shouldStoreCountryCode);

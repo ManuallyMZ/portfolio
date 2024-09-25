@@ -4,9 +4,6 @@
       <li><router-link :to="{name: 'home'}">Home</router-link></li>
       <li><router-link :to="{name: 'about'}">About</router-link></li>
       <li><router-link :to="{name: 'contact'}">Contact</router-link></li>
-      <!-- <li><router-link :to="{name: 'blog'}">Blog</router-link></li>
-      <li><router-link :to="{name: 'careers'}">Careers</router-link></li>
-      <li><router-link :to="{name: 'shop'}">Shop</router-link></li> -->
       <li><router-link :to="{name: 'form'}">Form</router-link></li>
     </ul>
   </div>
@@ -27,7 +24,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Keep navbar above the fullPage sections */
+  z-index: 1000;
 }
 .top-nav ul {
   display: flex;
@@ -35,7 +32,7 @@ export default {
   justify-content: center;
   gap: 20px;
   /* background: linear-gradient(to left, #000033, #000066, #330066, #660099, #9933cc); */
-  background: linear-gradient(to left, #000033, #000066, #220044, #440077, #550099);
+  background: linear-gradient(to left, #00005ee0, #000066e0, #220044e0, #440077e0, #550099e0);
   margin: 0;
   padding: 10px 25px;
 }

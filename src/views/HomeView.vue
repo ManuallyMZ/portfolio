@@ -58,6 +58,11 @@
         </div>
       </div>
     </section>
+
+    <section id="ex1" class="home-skills">
+      <Skills />
+    </section>
+
     <section id="home-page4" class="home4">
       <div class="page5">
         <ContactModal />
@@ -72,11 +77,12 @@
 
 <script>
 import Lenis from 'lenis'
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import ContactModal from '../components/ContactModal.vue'
 import ScrollTop from '../components/ScrollTop.vue'
+import Skills from '../components/Skills.vue'
 
 gsap.registerPlugin(ScrollToPlugin);
 gsap.registerPlugin(ScrollTrigger);
@@ -85,14 +91,16 @@ export default {
   name: 'HomeView',
   components: {
     ContactModal,
-    ScrollTop
+    ScrollTop,
+    Skills
+  
   },
   data() {
     return {
-        gsapContext: null,
-        totalScrollHeight: 0,
-        lenis: null,
-        isScrollDown: false
+      totalScrollHeight: 0,
+      lenis: null,
+      isScrollDown: false,
+      constrain: 15,
     }
   },
   methods: {
@@ -103,33 +111,32 @@ export default {
       });
     },
     checkScrollPosition() {
-      const scrollY = this.lenis.scroll; // Get the scroll position
-      this.isScrollDown = scrollY > 2000; // Update the condition
-    }
+      const scrollY = this.lenis.scroll;
+      this.isScrollDown = scrollY > 2000;
+    },
   },
   computed: {
     calculateScrollHeight() {
-  const viewportHeight = window.innerHeight;
+      const viewportHeight = window.innerHeight;
 
-  const home1Start = 0.40 * viewportHeight;
-  const home1End = 0.70 * viewportHeight;
-  const home1Height = home1End - home1Start;
+      const home1Start = 0.40 * viewportHeight;
+      const home1End = 0.70 * viewportHeight;
+      const home1Height = home1End - home1Start;
 
-  const home2ST1Height = viewportHeight;
+      const home2ST1Height = viewportHeight;
 
-  const home2ST2Height = viewportHeight + 1;
+      const home2ST2Height = viewportHeight + 1;
 
-  const home2ST3Height = viewportHeight * 1.50;
+      const home2ST3Height = viewportHeight * 1.50;
 
-  const home3ST1Height = viewportHeight;
+      const home3ST1Height = viewportHeight;
 
-  const home3ST2Height = viewportHeight * 5 - 3;
+      const home3ST2Height = viewportHeight * 5 - 3;
 
-  const totalHeight = home1Height + home2ST1Height + home2ST2Height + home2ST3Height + home3ST1Height + home3ST2Height;
+      const totalHeight = home1Height + home2ST1Height + home2ST2Height + home2ST3Height + home3ST1Height + home3ST2Height;
 
-  return totalHeight;
-}
-
+      return totalHeight;
+    }
   },
   created() {
     this.lenis = new Lenis(
@@ -153,6 +160,7 @@ export default {
     
   },
   mounted() {
+
     this.totalScrollHeight = this.calculateScrollHeight;
     this.gsapContext = gsap.context(() => {
       const bgtl = gsap.timeline({
@@ -326,7 +334,22 @@ export default {
       .to(".page4center", {
         opacity:0
       },)
-
+      
+      const canvtl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".home-skills",
+          start: "3px top",
+          end: "+300% bottom",
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => gsap.set('.page4', {left: '0px'}),
+          onUpdate: (self) => {
+            gsap.set(self.trigger, {left: '0px'});
+          },
+          onLeave: () => gsap.set('.page4', {left: '0px'}),
+        }
+      })
       const contl = gsap.timeline({
         scrollTrigger: {
           trigger: ".home4",
@@ -384,16 +407,17 @@ export default {
     });
   },
   beforeUnmount() {
-    gsap.to(window, {
-      duration: 1,
-      scrollTo: { y: 0 },
-      ease: 'power2.inOut',
-      overwrite: true,  
-    });
+    this.lenis.scrollTo(0, {
+        duration: 2,
+        ease: 'power2.inOut'
+      });
     if (this.gsapContext) {
       this.gsapContext.revert();
     }
     this.animation.kill();
+    if (this.lenis) {
+      this.lenis.destroy();
+    }
   },
   
 }
@@ -432,7 +456,7 @@ section {
   margin: 0;
   padding: 0;
   left: 0;
-  position: relative; /* Ensure it's relative before being pinned */
+  position: relative;
 }
 .page1image {
   width: 30%;
@@ -451,7 +475,7 @@ section {
 .page2 {
   display: flex;
   opacity: 0;
-  transform: translateY(100px); /* Start from bottom */
+  transform: translateY(100px);
   align-items: center;
   justify-content: center;
 }

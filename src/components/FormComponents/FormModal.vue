@@ -87,11 +87,9 @@ export default {
     handleClick() {
   const currentFormStep = this.$refs[`formStep${this.currentStep}`];
   console.log('Validating form step:', this.currentStep);
-  // Ensure the current form step has the validateForm method and it returns true
   if (currentFormStep && typeof currentFormStep.validateForm === 'function') {
     if (currentFormStep.validateForm()) {
       console.log('Validation successful');
-      // Proceed to next page if validation is successful
       if (this.currentStep < 3) {
         this.nextPage();
       } else {
@@ -147,7 +145,7 @@ export default {
       link.download = 'form-data.json';
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link); // Clean up the DOM
+      document.body.removeChild(link);
     },
     submitAnimation() {
       const formContext = gsap.context(() => {
