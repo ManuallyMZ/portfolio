@@ -22,27 +22,6 @@ const routes = [
     name: 'about',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
-  {
-    path: '/blog/',
-    name: 'blog',
-    component: () => import(/* webpackChunkName: "blog" */ '../views/BlogView.vue')
-  },
-  {
-    path: '/careers',
-    name: 'careers',
-    component: () => import(/* webpackChunkName: "careers" */ '../views/CareersView.vue')
-  },
-  {
-    path: '/careers/career/:id',
-    name: 'CareerLayout',
-    props: true,
-    component: CareerLayout
-  },
-  {
-    path: '/shop',
-    name: 'shop',
-    component: () => import(/* webpackChunkName: "shop" */ '../views/ShopView.vue')
-  },
   
   {
     path: '/:pathMatch(.*)',

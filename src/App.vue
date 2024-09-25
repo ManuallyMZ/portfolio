@@ -3,7 +3,7 @@
   <div class="router-wrapper">
     <router-view v-slot="{ Component }">
       <transition name="slide-fade" mode="out-in">
-        <component :is="Component" :topnavHeight="topnavHeight"/>
+        <component :is="Component" />
       </transition>
     </router-view>
   </div>
@@ -20,7 +20,7 @@ export default {
     }
   },
   components : {
-    TopNav
+    TopNav,
   },
   mounted() {
     window.scrollTo(0, 0);
@@ -28,7 +28,8 @@ export default {
   methods: {
     receiveData(data) {
       this.topnavHeight = data;
-    }
+    },
+
   }
 }
 </script>

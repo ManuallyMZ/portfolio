@@ -4,9 +4,9 @@
       <li><router-link :to="{name: 'home'}">Home</router-link></li>
       <li><router-link :to="{name: 'about'}">About</router-link></li>
       <li><router-link :to="{name: 'contact'}">Contact</router-link></li>
-      <li><router-link :to="{name: 'blog'}">Blog</router-link></li>
+      <!-- <li><router-link :to="{name: 'blog'}">Blog</router-link></li>
       <li><router-link :to="{name: 'careers'}">Careers</router-link></li>
-      <li><router-link :to="{name: 'shop'}">Shop</router-link></li>
+      <li><router-link :to="{name: 'shop'}">Shop</router-link></li> -->
       <li><router-link :to="{name: 'form'}">Form</router-link></li>
     </ul>
   </div>
@@ -23,7 +23,7 @@ export default {
 
 <style>
 .top-nav {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -32,7 +32,7 @@ export default {
 .top-nav ul {
   display: flex;
   list-style: none;
-
+  justify-content: center;
   gap: 20px;
   /* background: linear-gradient(to left, #000033, #000066, #330066, #660099, #9933cc); */
   background: linear-gradient(to left, #000033, #000066, #220044, #440077, #550099);
@@ -57,7 +57,8 @@ export default {
 }
 
 .top-nav li a.router-link-exact-active {
-  color: #76cdf5;
+  color: #f311e8;
   cursor: pointer;
+  text-shadow: 0 2px 25px rgba(255,255,255,0.5);
 }
 </style>

@@ -81,7 +81,7 @@ export default {
   flex-flow:column;
   justify-content: center;
   position: relative;
-  background: #141526;
+  background: rgba(20, 21, 38, 0.9);
   width: 85%;
   max-width: 650px;
 }

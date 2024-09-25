@@ -42,7 +42,7 @@
     <section id="home-page3" class="home3">
       <div class="column3 page4">
         <div class="page4left">
-          <h2>Check out some of my <router-link :to="{name: 'shop'}" class="homeLink">Merchandise!</router-link></h2>
+          <h2>Check out some of my Merchandise!</h2>
         </div>
       </div>
       <div class="column3 page3">
@@ -54,7 +54,7 @@
       </div>
       <div class="column3 page4">
         <div class="page4right">
-          <h2>Visit the <router-link :to="{name: 'blog'}" class="homeLink">Blog!</router-link></h2>
+          <h2>Visit the Blog!</h2>
         </div>
       </div>
     </section>
@@ -64,6 +64,9 @@
       </div>
     </section>
     <div class="home-footer"></div>
+    <transition name="fade" mode="out-in">
+      <ScrollTop @goTop="handleGoTop" v-if="isScrollDown"/>
+    </transition>
   </div>
 </template>
 
@@ -73,6 +76,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import ContactModal from '../components/ContactModal.vue'
+import ScrollTop from '../components/ScrollTop.vue'
 
 gsap.registerPlugin(ScrollToPlugin);
 gsap.registerPlugin(ScrollTrigger);
@@ -80,12 +84,27 @@ gsap.registerPlugin(ScrollTrigger);
 export default {
   name: 'HomeView',
   components: {
-    ContactModal
+    ContactModal,
+    ScrollTop
   },
   data() {
     return {
         gsapContext: null,
         totalScrollHeight: 0,
+        lenis: null,
+        isScrollDown: false
+    }
+  },
+  methods: {
+    handleGoTop() {
+      this.lenis.scrollTo(0, {
+        duration: 2,
+        ease: 'power2.inOut'
+      });
+    },
+    checkScrollPosition() {
+      const scrollY = this.lenis.scroll; // Get the scroll position
+      this.isScrollDown = scrollY > 2000; // Update the condition
     }
   },
   computed: {
@@ -113,21 +132,21 @@ export default {
 
   },
   created() {
-    const lenis = new Lenis(
+    this.lenis = new Lenis(
       { 
         lerp: 0.035,
         smoothTouch: false,
       }
     );
 
-    lenis.on('scroll', (e) => {
-      console.log(e)
+    this.lenis.on('scroll', () => {
+      this.checkScrollPosition();
     })
 
-    lenis.on('scroll', ScrollTrigger.update)
+    this.lenis.on('scroll', ScrollTrigger.update)
 
     gsap.ticker.add((time)=>{
-      lenis.raf(time * 1000)
+      this.lenis.raf(time * 1000)
     })
 
     gsap.ticker.lagSmoothing(0)
@@ -457,4 +476,5 @@ section {
   height: 1vh;
   width: 100vw;
 }
+
 </style>
