@@ -135,7 +135,7 @@ export default {
 
       try {
         // Send the form data to your API
-        const response = await fetch('/api/submitForm', {
+        const response = await fetch('../../api/submitForm', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
