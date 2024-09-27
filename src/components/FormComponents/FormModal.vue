@@ -113,6 +113,7 @@ export default {
     
     async handleSubmit() {
       this.submitAnimation();
+      console.log('Received request:'); // Add this line
       setTimeout(() => {
         this.closeModal();
       }, 3000);
@@ -134,7 +135,7 @@ export default {
 
       try {
         // Send the form data to your API
-        const response = await fetch('/api/form', {
+        const response = await fetch('/api/submitForm', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
