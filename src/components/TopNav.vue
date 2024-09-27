@@ -32,7 +32,7 @@ export default {
   justify-content: center;
   gap: 20px;
   /* background: linear-gradient(to left, #000033, #000066, #330066, #660099, #9933cc); */
-  background: linear-gradient(to left, #00005ee0, #000066e0, #220044e0, #440077e0, #550099e0);
+  background: linear-gradient(to left, #00005e, #000066, #220044, #430077, #540099);
   margin: 0;
   padding: 10px 25px;
 }

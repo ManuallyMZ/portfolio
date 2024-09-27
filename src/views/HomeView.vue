@@ -407,6 +407,9 @@ export default {
     });
   },
   beforeUnmount() {
+    if (this.onWindowResize) {
+    window.removeEventListener('resize', this.onWindowResize);
+  }
     this.lenis.scrollTo(0, {
         duration: 2,
         ease: 'power2.inOut'

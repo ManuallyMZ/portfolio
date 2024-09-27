@@ -84,22 +84,22 @@ export default {
     closeModal() {
       this.$emit('close')
     },
-    handleClick() {
-  const currentFormStep = this.$refs[`formStep${this.currentStep}`];
-  console.log('Validating form step:', this.currentStep);
-  if (currentFormStep && typeof currentFormStep.validateForm === 'function') {
-    if (currentFormStep.validateForm()) {
-      console.log('Validation successful');
-      if (this.currentStep < 3) {
-        this.nextPage();
-      } else {
-        this.handleSubmit();
+    async handleClick() {
+      const currentFormStep = this.$refs[`formStep${this.currentStep}`];
+      console.log('Validating form step:', this.currentStep);
+      if (currentFormStep && typeof currentFormStep.validateForm === 'function') {
+        if (currentFormStep.validateForm()) {
+          console.log('Validation successful');
+          if (this.currentStep < 3) {
+            this.nextPage();
+          } else {
+            await this.handleSubmit();
+          }
+        } else {
+          console.log('Validation failed');
+        }
       }
-    } else {
-      console.log('Validation failed');
-    }
-  }
-},
+    },
     nextPage() {
       this.isNext = true
       this.transitionToNextStep();
@@ -110,7 +110,8 @@ export default {
         this.currentStep -= 1,
         this.transitionToPreviousStep();
     },
-    handleSubmit() {
+    
+    async handleSubmit() {
       this.submitAnimation();
       setTimeout(() => {
         this.closeModal();
@@ -131,21 +132,25 @@ export default {
 
       };
 
-      const jsonData = JSON.stringify(formData, null, 2);
-      this.saveJSONFile(jsonData);
+      try {
+        // Send the form data to your API
+        const response = await fetch('../../api/form', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
 
-      formStore.resetForm();
-      console.log("submitted");
-
-    },
-    saveJSONFile(data) {
-      const blob = new Blob([data], { type: 'application/json' });
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = 'form-data.json';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+        if (response.ok) {
+          console.log("Form submitted successfully!");
+          formStore.resetForm(); // Reset the form after successful submission
+        } else {
+          console.error("Form submission failed:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
     },
     submitAnimation() {
       const formContext = gsap.context(() => {

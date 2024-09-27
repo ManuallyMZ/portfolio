@@ -25,12 +25,12 @@ export default {
     camera.position.z = 15;
 
     const rectangleWidth = 30;
-const rectangleHeight = 20;
-const rectangleGeometry = new THREE.PlaneGeometry(rectangleWidth, rectangleHeight);
-const rectangleMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
-const rectangle = new THREE.Mesh(rectangleGeometry, rectangleMaterial);
-rectangle.rotation.x = Math.PI / 2;
-scene.add(rectangle);
+    const rectangleHeight = 20;
+    const rectangleGeometry = new THREE.PlaneGeometry(rectangleWidth, rectangleHeight);
+    const rectangleMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, side: THREE.DoubleSide });
+    const rectangle = new THREE.Mesh(rectangleGeometry, rectangleMaterial);
+    rectangle.rotation.x = Math.PI / 2;
+    scene.add(rectangle);
 
 
     const spheres = [];
@@ -108,12 +108,12 @@ scene.add(rectangle);
     };
 
     const resolveSphereCollision = (sphere1, sphere2) => {
-    const dx = sphere1.position.x - sphere2.position.x;
-    const dy = sphere1.position.y - sphere2.position.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const collisionDistance = 2;
+      const dx = sphere1.position.x - sphere2.position.x;
+      const dy = sphere1.position.y - sphere2.position.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const collisionDistance = 2;
 
-    if (distance < collisionDistance) {
+      if (distance < collisionDistance) {
         const normalX = dx / distance;
         const normalY = dy / distance;
 
@@ -149,42 +149,36 @@ scene.add(rectangle);
         sphere1.position.y += correctionY;
         sphere2.position.x -= correctionX;
         sphere2.position.y -= correctionY;
-    }
-};
-
-
-
-
-
-
+      }
+    };
 
     const checkBorderCollision = (sphere) => {
-  const radius = 1;
+      const radius = 1;
 
-  const leftBorder = -rectangleWidth / 2;
-  const rightBorder = rectangleWidth / 2;
-  const topBorder = 10;
-  const bottomBorder = -10;
+      const leftBorder = -rectangleWidth / 2;
+      const rightBorder = rectangleWidth / 2;
+      const topBorder = 10;
+      const bottomBorder = -10;
 
 
-  if (sphere.position.x - radius < leftBorder || sphere.position.x + radius > rightBorder) {
-    sphere.velocity.x *= -1;
-    sphere.position.x = Math.max(leftBorder + radius, Math.min(sphere.position.x, rightBorder - radius));
-  }
+      if (sphere.position.x - radius < leftBorder || sphere.position.x + radius > rightBorder) {
+        sphere.velocity.x *= -1;
+        sphere.position.x = Math.max(leftBorder + radius, Math.min(sphere.position.x, rightBorder - radius));
+      }
 
-  if (sphere.position.y - radius < bottomBorder || sphere.position.y + radius > topBorder) {
-    sphere.velocity.y *= -1;
-    sphere.position.y = Math.max(bottomBorder + radius, Math.min(sphere.position.y, topBorder - radius));
-  }
-};
+      if (sphere.position.y - radius < bottomBorder || sphere.position.y + radius > topBorder) {
+        sphere.velocity.y *= -1;
+        sphere.position.y = Math.max(bottomBorder + radius, Math.min(sphere.position.y, topBorder - radius));
+      }
+    };
 
-const floatAmplitude = 0.001;
-const floatSpeed = 0.5;
+    const floatAmplitude = 0.001;
+    const floatSpeed = 0.5;
 
-const animate = function () {
-    requestAnimationFrame(animate);
+    const animate = function () {
+      requestAnimationFrame(animate);
 
-    spheres.forEach((sphere, index) => {
+      spheres.forEach((sphere, index) => {
         sphere.position.x += sphere.velocity.x;
         sphere.position.y += sphere.velocity.y;
 
@@ -196,18 +190,18 @@ const animate = function () {
         sphere.position.y += Math.sin(Date.now() * 0.001 * floatSpeed + index) * floatAmplitude;
 
         if (Math.abs(sphere.velocity.x) < 0.001 && Math.abs(sphere.velocity.y) < 0.001) {
-            sphere.velocity.set(0, 0);
+          sphere.velocity.set(0, 0);
         }
 
         for (let j = index + 1; j < spheres.length; j++) {
-            if (checkCollision(sphere, spheres[j])) {
-                resolveSphereCollision(sphere, spheres[j]);
-            }
+          if (checkCollision(sphere, spheres[j])) {
+            resolveSphereCollision(sphere, spheres[j]);
+          }
         }
-    });
+      });
 
-    renderer.render(scene, camera);
-};
+      renderer.render(scene, camera);
+    };
 
     this.$refs.canvas.addEventListener('mousedown', (event) => {
       const rect = this.$refs.canvas.getBoundingClientRect();
@@ -225,28 +219,28 @@ const animate = function () {
     });
 
     this.$refs.canvas.addEventListener('mousemove', (event) => {
-  if (isDragging && draggedObject) {
-    const rect = this.$refs.canvas.getBoundingClientRect();
-    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      if (isDragging && draggedObject) {
+        const rect = this.$refs.canvas.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-    const deltaX = mouse.x - previousMousePosition.x;
-    const deltaY = mouse.y - previousMousePosition.y;
+        const deltaX = mouse.x - previousMousePosition.x;
+        const deltaY = mouse.y - previousMousePosition.y;
 
-    const speedMultiplier = 5;
-    draggedObject.position.x += deltaX * speedMultiplier;
-    draggedObject.position.y += deltaY * speedMultiplier;
+        const speedMultiplier = 5;
+        draggedObject.position.x += deltaX * speedMultiplier;
+        draggedObject.position.y += deltaY * speedMultiplier;
 
-    velocity.set(deltaX * speedMultiplier, deltaY * speedMultiplier);
+        velocity.set(deltaX * speedMultiplier, deltaY * speedMultiplier);
 
-    const maxSpeed = 5;
-    if (velocity.length() > maxSpeed) {
-      velocity.normalize().multiplyScalar(maxSpeed);
-    }
+        const maxSpeed = 5;
+        if (velocity.length() > maxSpeed) {
+          velocity.normalize().multiplyScalar(maxSpeed);
+        }
 
-    previousMousePosition.set(mouse.x, mouse.y);
-  }
-});
+        previousMousePosition.set(mouse.x, mouse.y);
+      }
+    });
 
 
     this.$refs.canvas.addEventListener('mouseup', () => {
@@ -257,9 +251,11 @@ const animate = function () {
       draggedObject = null;
     });
     const onWindowResize = () => {
-      camera.aspect = this.$refs.canvas.clientWidth / this.$refs.canvas.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(this.$refs.canvas.clientWidth, this.$refs.canvas.clientHeight);
+      if (this.$refs.canvas) {
+        camera.aspect = this.$refs.canvas.clientWidth / this.$refs.canvas.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(this.$refs.canvas.clientWidth, this.$refs.canvas.clientHeight);
+      }
     };
 
     window.addEventListener('resize', onWindowResize);
@@ -267,7 +263,9 @@ const animate = function () {
   },
 
   beforeUnmount() {
-    window.removeEventListener('resize', this.onWindowResize);
+    if (this.onWindowResize) {
+      window.removeEventListener('resize', this.onWindowResize);
+    }
   },
 };
 </script>
