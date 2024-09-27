@@ -11,7 +11,7 @@
       <div class="column2">
         <div class="page1right">
           <div class="page1image">
-            <img src="../assets/images/mountain.jpg" alt="Nima R">
+            <!-- <img src="../assets/images/mountain.jpg" alt="Nima R"> -->
           </div>
         </div>
       </div>
