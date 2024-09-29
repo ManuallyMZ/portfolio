@@ -1,6 +1,7 @@
 <template>
   <div class="skills">
     <h2>Skills</h2>
+    <h3>Feel free to move them!</h3>
     <div ref="canvas" class="canvas"></div>
   </div>
 </template>

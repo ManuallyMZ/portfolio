@@ -101,10 +101,9 @@ textarea {
   width: 80%;
   border-radius: 15px;
   max-height: 50vh;
-  color: bisque;
+  color: rgb(110, 255, 224);
   background: #1e1f38;
   border: none;
-  box-shadow: 0px 2px 15px rgba(134, 13, 248, 0.37);
   padding: 0 10px;
   font-size: 15px;
 }

@@ -50,9 +50,15 @@ export default {
 
     const handleFileUpload = (event) => {
       attachment.value = event.target.files[0];
+      formStore.attachment = attachment.value; // Sync with the store immediately
     };
-
+    const updateStore = () => {
+    formStore.preferredContact = preferredContact.value;
+    formStore.meetingDate = meetingDate.value;
+    formStore.budget = budget.value;
+  };
     const validateForm = () => {
+      updateStore();
       let isValid = true;
       if (!preferredContact.value) {
         errors.value.preferredContact = 'Please select a contact method';
@@ -70,12 +76,7 @@ export default {
     });
 
     onBeforeUnmount(() => {
-      formStore.setAdditionalInfo(
-        preferredContact.value,
-        attachment.value,
-        meetingDate.value,
-        budget.value
-      );
+      updateStore();
     });
 
     return {

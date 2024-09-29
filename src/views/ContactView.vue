@@ -75,7 +75,6 @@ export default {
   width: 85%;
   max-width: 650px;
   box-shadow: 0 4px 30px rgba(108, 9, 221, 0.836);
-  border-radius: 10px
 }
 .cmodal {
   margin: 0 auto;

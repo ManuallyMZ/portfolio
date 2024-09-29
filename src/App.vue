@@ -7,6 +7,9 @@
       </transition>
     </router-view>
   </div>
+  <div class="web-footer">
+    <p>© 2024 Nima Ramezani</p>
+  </div>
 </template>
 
 <script>

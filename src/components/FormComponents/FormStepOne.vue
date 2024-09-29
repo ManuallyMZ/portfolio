@@ -51,7 +51,6 @@ export default {
     };
 
     const validateForm = () => {
-      console.log('validateForm called');
       let isValid = true;
       errors.value = {
         email: '',
@@ -68,16 +67,12 @@ export default {
         errors.value.email = 'Please enter a valid email address';
         isValid = false;
       }
-      console.log('Phone:', phone.value);
-      console.log('Country Code:', countryCode.value);
       
       if (phone.value && !validatePhone(phone.value)) {
         errors.value.phone = 'Please enter a valid phone number';
         isValid = false;
       }
-      console.log('Countryyyyyyyyy', !(!countryCode.value));
       if (phone.value && !countryCode.value) {
-        console.log('Countryyyyyyyyy');
         errors.value.phone = 'Please enter select a country code if a number is provided';
         isValid = false;
       }
@@ -109,8 +104,6 @@ export default {
 
     onBeforeUnmount(() => {
       const shouldStoreCountryCode = phone.value ? countryCode.value : '';
-      console.log('Phone:', phone.value);
-      console.log('Should Store Country Code:', shouldStoreCountryCode);
       formStore.setPersonalInfo(fullName.value, email.value, phone.value, shouldStoreCountryCode);
       if (iti) {
         iti.destroy();
@@ -181,5 +174,9 @@ input:focus {
 }
 .iti__search-input {
   border-radius: 15px;
+}
+.iti__selected-dial-code {
+  color: rgb(110, 255, 224);
+  margin-right: 15px;
 }
 </style>

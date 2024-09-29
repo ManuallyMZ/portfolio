@@ -52,6 +52,7 @@ import FormStepOne from './FormStepOne.vue'
 import FormStepTwo from './FormStepTwo.vue'
 import FormStepThree from './FormStepThree.vue'
 import { useFormStore } from '../../stores/form';
+import emailjs from 'emailjs-com';
 
 export default {
   components: {
@@ -84,22 +85,19 @@ export default {
     closeModal() {
       this.$emit('close')
     },
-    async handleClick() {
+    handleClick() {
       const currentFormStep = this.$refs[`formStep${this.currentStep}`];
-      console.log('Validating form step:', this.currentStep);
       if (currentFormStep && typeof currentFormStep.validateForm === 'function') {
         if (currentFormStep.validateForm()) {
-          console.log('Validation successful');
           if (this.currentStep < 3) {
             this.nextPage();
           } else {
-            await this.handleSubmit();
+            this.handleSubmit();
           }
         } else {
-          console.log('Validation failed');
-        }
       }
-    },
+  }
+},
     nextPage() {
       this.isNext = true
       this.transitionToNextStep();
@@ -110,12 +108,17 @@ export default {
         this.currentStep -= 1,
         this.transitionToPreviousStep();
     },
-    
-    async handleSubmit() {
+    handleSubmit() {
       this.submitAnimation();
-      console.log('Received request:'); // Add this line
       setTimeout(() => {
         this.closeModal();
+        emailjs.send('service_uta1g8t', 'template_iv23gwg', formData, 'dcV-gQ8pzKCO3TAQO')
+      .then(response => {
+        this.isSubmit = true;
+        formStore.resetForm();
+      })  .catch((error) => {
+    console.error('Failed to send email:', error);
+  });
       }, 3000);
       const formStore = useFormStore(); 
       const formData = {
@@ -133,26 +136,10 @@ export default {
 
       };
 
-      try {
-        // Send the form data to your API
-        const response = await fetch('/api/submitForm', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
+      
 
-        if (response.ok) {
-          console.log("Form submitted successfully!");
-          formStore.resetForm(); // Reset the form after successful submission
-        } else {
-          console.error("Form submission failed:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error submitting form:", error);
-      }
     },
+    
     submitAnimation() {
       const formContext = gsap.context(() => {
         this.animation = gsap.to('.buttonTextSubmit', {
@@ -245,6 +232,7 @@ export default {
   background: #1e1f38;
   padding: 10px;
   z-index: -1;
+  border-radius: 0 0 8px 8px;
 }
 
 
