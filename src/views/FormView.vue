@@ -1,6 +1,6 @@
 <template>
   <div class="form-vw" :style="{marginTop: topnavHeight +'px'}">
-    <div class="form-bg" :style="{ height: `calc(100vh - ${topnavHeight}px)`}">
+    <div class="form-bg" :style="{ height: `calc(100vh - ${topnavHeight}px - 40px)`}">
       <!-- `calc(100vh - ${topnavHeight}px)`  -->
       <div class="form-text">
         <h1>Complete the Form</h1>
@@ -81,7 +81,7 @@ export default {
   flex-flow:column;
   justify-content: center;
   position: relative;
-  background: rgba(20, 21, 38, 0.9);
+  background: #141526e6;
   width: 85%;
   max-width: 650px;
   box-shadow: 0 4px 30px rgba(108, 9, 221, 0.836);

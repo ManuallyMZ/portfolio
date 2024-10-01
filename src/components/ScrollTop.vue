@@ -28,6 +28,7 @@ export default {
   -webkit-backdrop-filter: blur(0.6px);
   box-sizing: border-box;
   cursor: pointer;
+  z-index: 10000;
 }
 .scroll-top img {
   width: 100%;

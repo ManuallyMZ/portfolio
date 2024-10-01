@@ -1,6 +1,6 @@
 <template>
   <div class="contact-vw" :style="{marginTop: topnavHeight +'px'}">
-    <div class="contact-bg" :style="{ height: `calc(100vh - ${topnavHeight}px)`}">
+    <div class="contact-bg" :style="{ height: `calc(100vh - ${topnavHeight}px - 40px)`}">
       <ContactModal class="cmodal"/>
     </div>
   </div>

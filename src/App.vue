@@ -105,4 +105,21 @@ export default {
   opacity: 1.0;
   transform: rotate(0deg);
 }
+.web-footer {
+  /* background-image: rgba(0,0,255,1);  */
+  background: #141526;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  padding-left: 10vw;
+  align-items: center;
+  user-select: none;
+  -moz-user-select: none; /* Firefox */
+  -webkit-user-select: none; /* Safari, Chrome */
+  -ms-user-select: none; /* IE, Edge */
+  color: white;
+  font-size: 14px;
+}
 </style>
