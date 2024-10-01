@@ -4,8 +4,8 @@
     <section id="home-page1" class="home1" >
       <div class="column2">
         <div class="page1left">
-          <h2>Welcome to the ultimate website</h2>
-          <h3>Written by <b>Nima R</b></h3>
+          <h2>Welcome to my website</h2>
+          <h3>Written by <b>Nima Ramezani</b></h3>
         </div>
       </div>
       <div class="column2">
@@ -46,10 +46,9 @@
         </div>
       </div>
       <div class="column3 page3">
-        <h2 class="page3header">Want More?</h2>
+        <h2 class="page3header">Check some of my projects <a href="https://github.com/ManuallyMZ" target="_blank" class="homeLink">Here</a></h2>
         <div class="page4center">
-          <h2>Subscribe to my newsletter</h2>
-          <h2><router-link :to="{name: 'form'}" class="homeLink">Here!</router-link></h2>
+          <h2>Reach me out by completing the <router-link :to="{name: 'form'}" class="homeLink">Form</router-link></h2>
         </div>
       </div>
       <div class="column3 page4">
